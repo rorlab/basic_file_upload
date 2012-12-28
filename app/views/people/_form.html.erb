@@ -1,0 +1,27 @@
+<%= simple_form_for(@person) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :gender %>
+    <%= f.input :mobile %>
+    <% if f.object.file_name %>
+      <table>
+        <tr>
+          <td>
+            <%= image_tag "/uploads/" + f.object.file_name, :size => "200x200" %> 
+          </td>
+          <td>
+            <p>Filename : <%= f.object.file_name %></p>     
+            <p>Content_type : <%= f.object.content_type %></p>     
+          </td>
+        </tr>
+      </table>
+    <% end %>
+    <%= f.input :uploaded, as: :file %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
