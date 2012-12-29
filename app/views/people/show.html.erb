@@ -17,8 +17,17 @@
 
 <p>
   <b>Uploaded File:</b>
-  <%= image_tag("/uploads/" + @person.file_name, :size => "200x200") %>
+  <%= image_tag("/uploads/" + @person.file_name, :size => "100x100") %>
 </p>
+
+<% if @person.attaches.size > 0 %>
+  <b>Profile Image:</b>
+  <% @person.attaches.each do | attach | %>
+    <p>
+      <%= image_tag "/uploads/attaches/#{attach.file_name}", :size => "100x100" %>
+    </p>
+  <% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

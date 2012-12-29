@@ -19,6 +19,24 @@
       </table>
     <% end %>
     <%= f.input :uploaded, as: :file %>
+
+    <% if f.object.attaches.size > 0 %>
+      <table>
+        <% f.object.attaches.each do | attach | %>
+        <tr>
+          <td>
+            <%= image_tag "/uploads/attaches/" + attach.file_name, :size => "100x100" %>
+          </td>
+          <td>
+            <p>Filename : <%= attach.file_name %></p>
+            <p>Content_type : <%= attach.content_type %></p>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+    <% end %>     
+    <%= f.label :attached %>
+    <%= f.file_field :attached, :multiple => true %>
   </div>
 
   <div class="form-actions">

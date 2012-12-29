@@ -49,7 +49,17 @@ class PeopleController < ApplicationController
       @person.file_name = uploaded_io.original_filename
       @person.content_type = uploaded_io.content_type
     end
-
+    if params[:person][:attached].size > 0 
+      uploaded_ios = params[:person][:attached]
+      uploaded_ios.each do | uploaded_io |
+        File.open(Rails.root.join('public', 'uploads', "attaches", uploaded_io.original_filename), 'wb') do |file|
+          file.write(uploaded_io.read)
+        end
+        attach = @person.attaches.build
+        attach.file_name = uploaded_io.original_filename
+        attach.content_type = uploaded_io.content_type
+      end
+    end
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
@@ -73,7 +83,17 @@ class PeopleController < ApplicationController
       @person.file_name = uploaded_io.original_filename
       @person.content_type = uploaded_io.content_type
     end
-
+    if params[:person][:attached].size > 0 
+      uploaded_ios = params[:person][:attached]
+      uploaded_ios.each do | uploaded_io |
+        File.open(Rails.root.join('public', 'uploads', "attaches", uploaded_io.original_filename), 'wb') do |file|
+          file.write(uploaded_io.read)
+        end
+        attach = @person.attaches.build
+        attach.file_name = uploaded_io.original_filename
+        attach.content_type = uploaded_io.content_type
+      end
+    end
     respond_to do |format|
       if @person.update_attributes(params[:person])
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
